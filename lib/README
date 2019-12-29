@@ -1,0 +1,102 @@
+Jpcap ver.0.5
+
+Copyright (c) 2006 Keita Fujii <kfujii@ics.uci.edu>
+
+
+*Introduction
+
+Jpcap is a Java class package that allows Java applications to 
+capture and/or send packets to the network.
+
+Jpcap is based on libpcap/winpcap and Raw Socket API. 
+Therefore, Jpcap is supposed to work on any OS on which 
+libpcap/winpcap has been implemented. 
+Currently, Jpcap has been tested on FreeBSD 3.x, 
+Linux RedHat 6.1, Fedora Core 4, Solaris, and Microsoft 
+Windows 2000/XP.
+
+Jpcap supports the following types of packets: 
+Ethernet, IPv4, IPv6, ARP/RARP, TCP, UDP, and ICMPv4.  
+Other types of packets are captured as raw packets 
+(i.e., instances of the Packet class) which contains 
+the whole data of the packets.  This allows Java applications 
+to analyze unsupported packet types.
+
+
+*Requirements:
+
+  - Java 2 Runtime Environment or Development Kit (http://java.sun.com)
+  - libpcap ver.0.9.4 or higher (http://www.tcpdump.org)
+    OR
+  - WinPcap ver.3.1 or higher (http://winpcap.polito.it/)
+
+* Compile
+
+On UNIX:
+# I'm sorry but I have to say that I'm not an expert UNIX C programmer,
+# so I cannot make a good Makefile...
+
+Go to "src/c". Then, edit Makefile.
+There are several options you have to change
+according to the type of the OS you're installing to.
+
+Also you might have to modify Jpcap_sub.h to enable IPv6 feature.
+However, you need header files for v6 installed in your OS.
+
+Run make to generate libjpcap.so.
+(If you get an error "structure has no member name sa_len...",
+please comment out the line "#define HAVE_SA_LEN" in Jpcap_sub.h.
+I'm so sorry for inconvenience.)
+
+
+On Windows:
+I included the project file of Visual C++, yet I'm not sure
+if it works under different environment. It is under "src/c/Proj".
+You can open the project file, and compile the source files to generate
+Jpcap.dll.
+
+
+*Installation
+
+On UNIX:
+1) Copy libjpcap.so to [Java directory]/jre/lib/<arch>.
+   <arch> is either "i386" or "sparc" 
+OR
+1') Set LD_LIBRARY_PATH to include the path where libjpcap.so exists.
+
+2) Copy jpcap.jar to extension directory (eg./usr/local/java/jre/lib/ext)
+OR
+2') Set CLASSPATH to include jpcap.jar.
+
+On Windows:
+
+Download and run the self installer.
+
+OR
+
+1) Copy "lib\Jpcap.dll" into "[JRE directory]\bin" or
+   "[JRE directory]\lib\ext\x86"
+2) Copy "lib\jpcap.jar" into "[JRE directory]\lib\ext"
+3) If you installed JDK, you also need to copy "lib\jpcap.jar" into
+"[JDK directory]\jre\lib\ext". 
+
+Note: [JRE directory] is usually "C:\Program Files\Java\j2re*".
+      [JDK directory] is usually "C:\Program Files\Java\jdk*".
+
+
+*Usage
+
+See the documentations under the directory 'doc'.
+You can also check some example source codes under 'sample'
+
+*Note
+
+You can redistribute it and/or modify it under the terms of
+the LGPL (GNU LESSER GENERAL PUBLIC LICENSE).  See COPYING file about LGPL.
+
+Jpcap provides poweful control of the network which may cause potential
+danger such as security threats or network policy violation.
+Plase use Jpcap at your own responsibility.
+I (Keita Fujii) am not responsible for any damage or legal/financial
+issue caused by using Jpcap under any circumstance.
+Also, DO NOT use Jpcap to develop any malicious software.
